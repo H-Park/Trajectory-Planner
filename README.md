@@ -41,3 +41,43 @@ to read the values
             }
         }
 ```
+
+## Java
+
+Declare a 2d array of your original way points
+
+```bash
+        double[][] waypoints = new double[][]{
+                {1, 2},
+                {2, 7},
+                {4, 7},
+                {6, 9},
+                {10, 11}
+        };
+```
+
+
+then the maximum time you want this path to be completed in, as well as your motor controller's frequency
+
+```bash
+    double totalTime = 15;
+    double timeStep = .1;
+```
+
+Construct a new PathPlanner class, set optimization parameters (optional), then call .calculate to generate the 
+smoothPath.
+
+```bash
+        final PathPlanner path = new PathPlanner(waypoints);
+
+        path.setPathAlpha(0.7);
+        path.setPathBeta(0.3);
+        path.setPathTolerance(0.0000001);
+        path.calculate(totalTime, timeStep);
+```
+
+The smooth path will be stored in 
+
+```bash
+    path.smoothPath
+```
