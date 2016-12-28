@@ -3,14 +3,10 @@
  * of Robot Motion in order to calculate smooth path trajectories, if given only discrete waypoints. The Benefit of these optimization
  * algorithms are very efficient path planning that can be used to Navigate in Real-time.
  * <p>
- * This Class uses a method of Gradient Decent, and other optimization techniques to produce smooth Velocity profiles
- * for every wheel of a 4 wheeled swerve drive.
+ * This Class uses a method of Gradient Decent, and other optimization techniques to produce a smooth path
  * <p>
  * This Class does not attempt to calculate quintic or cubic splines for best fitting a curve. It is for this reason, the algorithm can be ran
  * on embedded devices with very quick computation times.
- * <p>
- * The output of this function are independent velocity profiles for the each wheel of a 4 wheeled swerve drivetrain. The velocity
- * profiles start and end with 0 velocity and maintain smooth transitions throughout the path.
  */
 public class PathPlanner {
     //The waypoint only path
@@ -20,11 +16,6 @@ public class PathPlanner {
     double pathAlpha;
     double pathBeta;
     double pathTolerance;
-
-    //Tuning paramters for the velocities generated
-    double velocityAlpha;
-    double velocityBeta;
-    double velocityTolerance;
 
     //The origPath with injected points to allow for smooth transitions
     private double[][] smoothPath;
@@ -56,10 +47,6 @@ public class PathPlanner {
         pathAlpha = 0.7;
         pathBeta = 0.3;
         pathTolerance = 0.0000001;
-
-        velocityAlpha = 0.1;
-        velocityBeta = 0.3;
-        velocityTolerance = 0.0000001;
     }
 
     /**
@@ -67,7 +54,7 @@ public class PathPlanner {
      *
      * @param path
      */
-    public static void print(double[][] path) {
+    public void print(double[][] path) {
         for(int i = 0; i < path.length; i++) {
             for (int j = 0; j < path[i].length; j++) {
                 System.out.print(path[i][j] + "\t");
@@ -103,19 +90,11 @@ public class PathPlanner {
     public static void main(String[] args) {
         //create n dimensional waypoint path
         double[][] waypoints = new double[][]{
-                {2, 2, 0, 1},
-                {2, 7, 90, 2},
-                {2, 12, 180, 3},
-                {2, 17, 270, 4},
-                {2, 22, 360, 5},
-                {7, 22, 450, 6},
-                {12, 22, 540,7},
-                {17, 22, 630, 6},
-                {22, 22, 720, 5},
-                {22, 17, 810, 4},
-                {22, 12, 900, 3},
-                {22, 7, 990, 2},
-                {22, 2, 1080, 1}
+                {1, 2},
+                {2, 7},
+                {4, 7},
+                {6, 9},
+                {10, 11}
         };
 
         double totalTime = 15; //seconds
@@ -141,9 +120,9 @@ public class PathPlanner {
      * @return
      */
     public double[][] inject(double[][] orig, int numToInject) {
-        //create extended 2 Dimensional array to hold additional points
+        //create extended n Dimensional array to hold additional points
         double[][] morePoints = new double[orig.length + ((numToInject) * (orig.length - 1))][orig[0].length];
-
+        System.out.println(morePoints.length);
         int index = 0;
 
         //loop through original array
@@ -161,7 +140,7 @@ public class PathPlanner {
             }
         }
 
-        //copy first
+        //copy last
         System.arraycopy(orig[orig.length - 1], 0, morePoints[index], 0, morePoints[index - 1].length);
 
         return morePoints;
@@ -261,7 +240,6 @@ public class PathPlanner {
 
             ret = new int[]{first, second, third};
         }
-
         return ret;
     }
 
@@ -279,9 +257,8 @@ public class PathPlanner {
 
     /**
      * This code will calculate a smooth path based on the program parameters. If the user doesn't set any parameters, the will use the defaults optimized for most cases. The results will be saved into the corresponding
-     * class members. The user can then access .smoothPath, .leftPath, .rightPath, .smoothCenterVelocity, .smoothRightVelocity, .smoothLeftVelocity as needed.
+     * class members. The user can then access .smoothPath, .leftPath, .rightPath, .smoothCenter as needed
      * <p>
-     * After calling this method, the user only needs to pass .smoothRightVelocity[1], .smoothLeftVelocity[1] to the corresponding speed controllers on the Robot, and step through each setPoint.
      *
      * @param totalTime - time the user wishes to complete the path in seconds. (this is the maximum amount of time the robot is allowed to take to traverse the path.)
      * @param timeStep  - the frequency at which the robot controller is running on the robot.
@@ -310,4 +287,4 @@ public class PathPlanner {
             }
         }
     }
-}	
+}
