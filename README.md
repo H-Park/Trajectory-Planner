@@ -36,8 +36,8 @@ to read the values
 
 ```bash
         for(int i = 1; i < sPath[0][0]; i++) {
-        for(int j = 0; j < dim_points; j++) {
+            for(int j = 0; j < dim_points; j++) {
             //do something with sPath[i][j]
+            }
         }
-    }
 ```
