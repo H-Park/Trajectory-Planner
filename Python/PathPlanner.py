@@ -1,7 +1,6 @@
 from copy import deepcopy
 
 
-#
 # This method calculates the optimal parameters for determining what amount of nodes to inject into the path
 # to meet the time restraint. This approach uses an iterative process to inject and smooth, yielding more desirable
 # results for the final smooth path.
@@ -121,7 +120,9 @@ def smooth_path(orig, total_time, time_step):
 
 
 def test():
+
     points = [[1, 2], [2, 7], [4, 7], [6, 9], [10, 11]]
+
 
     total_time = 15
     time_step = .1
