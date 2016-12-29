@@ -3,6 +3,12 @@ State-Space Trajectory Planner
 Given N dimensional sequential waypoints, this code will develop a n dimensional path that yields
 a smooth transition between states in real time.
 
+The final path will be given in time intervals of the frequency of the motor controller, allowing
+for seemless integration into any control system. 
+
+PIDs are most commonly used to go from point n-1 -> point n -> point n+1. To have the most
+success, one should compute a motion profile that will follow the smooth path.
+
 ![Alt text](example.png?raw=true "Example Points") 
 
 ## C
