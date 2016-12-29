@@ -77,7 +77,6 @@ int* injectionCounter2Steps(float numNodeOnlyPoints, float maxTimeToComplete, fl
     ret[0] = first;
     ret[1] = second;
     ret[2] = third;
-
     return ret;
 }
 
@@ -87,7 +86,7 @@ int* injectionCounter2Steps(float numNodeOnlyPoints, float maxTimeToComplete, fl
  */
 float** inject(int numWayPoints, int dimWayPoint, float** orig, int numToInject) {
     //create extended n Dimensional array to hold additional points
-    int newNumWayPoints = numWayPoints + ((numToInject) * (numWayPoints- 1));
+    int newNumWayPoints = numWayPoints + (numToInject * (numWayPoints - 1));
     float** morePoints = malloc(newNumWayPoints * sizeof(float*));
     for (int i = 0; i < newNumWayPoints; i++) {
       morePoints[i] = malloc(dimWayPoint * sizeof(float));
@@ -97,8 +96,8 @@ float** inject(int numWayPoints, int dimWayPoint, float** orig, int numToInject)
 
     //loop through original array
     for (int i = 0; i < numWayPoints - 1; i++) {
-        //copy first
 
+        //copy first
         for(int j = 0; j < dimWayPoint; j++) {
             morePoints[index][j] = orig[i][j];
         }
@@ -177,14 +176,14 @@ float** smoothPath(int numWayPoints, int dimWayPoint, float** wayPoints, float t
             //update the number of points in our path before proceeding
             numPoints = numPoints + ((injections[i]) * (numPoints- 1));
 
-            path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
+            //path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
         } else {
             path = inject(numPoints, dimWayPoint, path, injections[i]);
 
             //update the number of points in our path before proceeding
             numPoints = numPoints + ((injections[i]) * (numPoints- 1));
 
-            path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
+            //path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
         }
     }
     //shift all the points down 1 and store the length in [0][0], including
@@ -243,6 +242,7 @@ void test()
         }
         printf("\n");
     }
+
     //clean up memory
     for (int i = 0; i < num_points; i++) {
       free(points[i]);

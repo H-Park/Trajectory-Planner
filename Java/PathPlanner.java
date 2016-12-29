@@ -280,10 +280,10 @@ public class PathPlanner {
         for (int i = 0; i < inject.length; i++) {
             if (i == 0) {
                 smoothPath = inject(origPath, inject[0]);
-                smoothPath = smoother(smoothPath, pathAlpha, pathBeta, pathTolerance);
+                //smoothPath = smoother(smoothPath, pathAlpha, pathBeta, pathTolerance);
             } else {
                 smoothPath = inject(smoothPath, inject[i]);
-                smoothPath = smoother(smoothPath, pathAlpha, pathBeta, pathTolerance);
+                //smoothPath = smoother(smoothPath, pathAlpha, pathBeta, pathTolerance);
             }
         }
     }
