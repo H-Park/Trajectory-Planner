@@ -29,11 +29,7 @@ int* injectionCounter2Steps(float numNodeOnlyPoints, float maxTimeToComplete, fl
 
     float oldPointsTotal = 0;
 
-<<<<<<< HEAD
     int* ret = (int*)malloc(3*sizeof(int));
-=======
-    int* ret = malloc(3*sizeof(int));
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
 
     float totalPoints = maxTimeToComplete / timeStep;
 
@@ -171,26 +167,18 @@ float** smoothPath(int numWayPoints, int dimWayPoint, float** wayPoints, float t
     float pathTolerance = 0.0000001;
 
     int numPoints = numWayPoints;
-<<<<<<< HEAD
     int old_num_points = numWayPoints;
 
-=======
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
     int* injections = injectionCounter2Steps(numWayPoints, totalTime, timeStep);
     //iteratively inject and smooth the path
     for (int i = 0; i < 3; i++) {
         if (i == 0) {
-<<<<<<< HEAD
             //tmp container for unsmoothed exented path. Yeah C...
             float** tmp1 = inject(numPoints, dimWayPoint, wayPoints, injections[0]);
-=======
-            path = inject(numPoints, dimWayPoint, wayPoints, injections[0]);
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
 
             //update the number of points in our path before proceeding
             numPoints = numPoints + ((injections[i]) * (numPoints- 1));
 
-<<<<<<< HEAD
             //Since path is an empty float**, there is no memory to free
             path = smoother(numPoints, dimWayPoint, tmp1, pathAlpha, pathBeta, pathTolerance);
 
@@ -204,8 +192,8 @@ float** smoothPath(int numWayPoints, int dimWayPoint, float** wayPoints, float t
             float** tmp1  = inject(numPoints, dimWayPoint, path, injections[i]);
 
             //update the number of points in our path before proceeding
-
             numPoints = numPoints + ((injections[i]) * (numPoints- 1));
+
             //Another tmp container for smoothed exented path. Yeah C...
             float** tmp2 = smoother(numPoints, dimWayPoint, tmp1, pathAlpha, pathBeta, pathTolerance);
 
@@ -227,6 +215,7 @@ float** smoothPath(int numWayPoints, int dimWayPoint, float** wayPoints, float t
                 path[i] = malloc(dimWayPoint* sizeof(float));
             }
 
+            //copy tmp2 into path
             for(int i = 0; i < numPoints; i++) {
                 for(int j = 0; j < dimWayPoint; j++) {
                     path[i][j] = tmp2[i][j];
@@ -240,24 +229,13 @@ float** smoothPath(int numWayPoints, int dimWayPoint, float** wayPoints, float t
             free(tmp2);
 
         }
+        //update num_points now that path has numPoints
         old_num_points = numPoints;
     }
 
     //clean up memory
     free(injections);
 
-=======
-            //path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
-        } else {
-            path = inject(numPoints, dimWayPoint, path, injections[i]);
-
-            //update the number of points in our path before proceeding
-            numPoints = numPoints + ((injections[i]) * (numPoints- 1));
-
-            //path = smoother(numPoints, dimWayPoint, path, pathAlpha, pathBeta, pathTolerance);
-        }
-    }
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
     //shift all the points down 1 and store the length in [0][0], including
     //the added point.
     float** finalPath = malloc((numPoints + 1) * sizeof(float*));
@@ -305,7 +283,6 @@ void test()
     float totalTime = 15;
     float timeStep = .1;
 
-<<<<<<< HEAD
     float** sPath = smoothPath(num_points, dim_points, points, totalTime, timeStep);
 
     for(int i = 1; i < sPath[0][0]; i++) {
@@ -313,16 +290,6 @@ void test()
             //printf("%f ", sPath[i][j]);
         }
         //printf("\n");
-=======
-    float** sPath;
-    sPath = smoothPath(num_points, dim_points, points, totalTime, timeStep);
-
-    for(int i = 1; i < sPath[0][0]; i++) {
-        for(int j = 0; j < dim_points; j++) {
-            printf("%f ", sPath[i][j]);
-        }
-        printf("\n");
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
     }
 
     //clean up memory
@@ -331,11 +298,7 @@ void test()
     }
     free(points);
 
-<<<<<<< HEAD
     for (int i = 0; i < sPath[0][0]; i++) {
-=======
-    for (int i = 0; i < sPath[9][0]; i++) {
->>>>>>> b038c27ca700000b234ffa5e86e828e92094e4e5
       free(sPath[i]);
     }
     free(sPath);
