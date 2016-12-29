@@ -1,7 +1,9 @@
 State-Space Trajectory Planner
 
 Given N dimensional sequential waypoints, this code will develop a n dimensional path that yields
-a smooth transition between states. 
+a smooth transition between states in real time.
+
+![Alt text](input.png?raw=true "Original Points") ![Alt text](smooth.png?raw=true "Smooth Path") 
 
 ## C
 
