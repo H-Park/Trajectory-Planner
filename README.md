@@ -3,7 +3,7 @@ State-Space Trajectory Planner
 Given N dimensional sequential waypoints, this code will develop a n dimensional path that yields
 a smooth transition between states. 
 
-![Alt text](input.png?raw=true "Original Points") 
+![Alt text](input.png?raw=true "Original Points") ![Alt text](smooth.png?raw=true "Smooth Path") 
 
 ## C
 
