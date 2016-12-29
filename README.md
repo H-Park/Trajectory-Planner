@@ -3,6 +3,8 @@ State-Space Trajectory Planner
 Given N dimensional sequential waypoints, this code will develop a n dimensional path that yields
 a smooth transition between states. 
 
+![Alt text](input.png?raw=true "Original Points") 
+
 ## C
 
 Declare a 2d array of your original way points
