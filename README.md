@@ -81,3 +81,24 @@ The smooth path will be stored in
 ```bash
     path.smoothPath
 ```
+
+## Python
+
+Declare a 2d array of your original way points
+
+```bash
+    points = [[1, 2], [2, 7], [4, 7], [6, 9], [10, 11]]
+```
+
+then the maximum time you want this path to be completed in, as well as your motor controller's frequency
+
+```bash
+    total_time = 15
+    time_step = .1
+```
+
+Now call smooth_path 
+
+```bash
+    path = smooth_path(points, total_time, time_step)
+```
