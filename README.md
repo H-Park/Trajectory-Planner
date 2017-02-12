@@ -11,6 +11,8 @@ success, one should compute a motion profile that will follow the smooth path.
 
 ![Alt text](example.png?raw=true "Example Points") 
 
+![Alt text](figure_1.png?raw=true "3d Points") 
+
 ## C
 
 Declare a 2d array of your original way points
